@@ -1,26 +1,20 @@
 package com.jpa.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "member")
-@NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 public class Member {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Id @GeneratedValue
     private long id;
 
-    @Column(name = "username")
-    private String username;
+    private String name;
 
-    public Member(String username) {
-        this.username = username;
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 }

@@ -1,12 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.7'
+    id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'com.jpa'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -19,13 +19,33 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "com.querydsl:querydsl-jpa"
+    implementation "com.querydsl:querydsl-collections"
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jpa")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+def generated="src/main/generated"
+
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+clean {
+    delete file(generated)
 }

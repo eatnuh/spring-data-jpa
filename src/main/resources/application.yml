@@ -1,15 +1,12 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/local_db
+    username: user
+    password: user
+    driver-class-name: com.mysql.cj.jdbc.Driver

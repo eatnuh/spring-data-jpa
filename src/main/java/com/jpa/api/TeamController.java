@@ -39,4 +39,11 @@ public class TeamController {
                 .map(TeamDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/UsingQuerydsl")
+    public List<TeamDto> findAllUsingQuerydsl() {
+        return teamRepository.findAllUsingQueryDsl().stream()
+                .map(TeamDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

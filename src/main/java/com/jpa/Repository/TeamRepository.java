@@ -8,7 +8,7 @@ import org.springframework.data.repository.Repository;
 import java.util.List;
 import java.util.Set;
 
-public interface TeamRepository extends Repository<Team, Long> {
+public interface TeamRepository extends Repository<Team, Long>, QuerydslTeamRepository {
 
     Team save(Team team);
 
